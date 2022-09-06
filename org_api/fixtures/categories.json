@@ -1,0 +1,44 @@
+[
+    {
+        "model": "org_api.category",
+        "pk": 1,
+        "fields": {
+            "name": "Grocery"
+        }
+    },
+    {
+        "model": "org_api.category",
+        "pk": 2,
+        "fields": {
+            "name": "Rum"
+        }
+    },
+    {
+        "model": "org_api.category",
+        "pk": 3,
+        "fields": {
+            "name": "Furniture"
+        }
+    },
+    {
+        "model": "org_api.category",
+        "pk": 4,
+        "fields": {
+            "name": "Frozen"
+        }
+    },
+    {
+        "model": "org_api.category",
+        "pk": 5,
+        "fields": {
+            "name": "Electronics"
+        }
+    },
+    {
+        "model": "org_api.category",
+        "pk": 6,
+        "fields": {
+            "name": "Wine"
+        }
+    }
+]

@@ -1,0 +1,11 @@
+[
+    {
+        "model": "org_api.family",
+        "pk": 1,
+        "fields": {
+            "owner": 1,
+            "family_user": 2,
+            "approved": false
+        }
+    }
+]

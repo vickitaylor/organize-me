@@ -1,0 +1,29 @@
+[
+    {
+        "model": "org_api.comment",
+        "pk": 1,
+        "fields": {
+            "item": 1,
+            "org": 1,
+            "comment": "Milk does a body good."
+        }
+    },
+    {
+        "model": "org_api.comment",
+        "pk": 2,
+        "fields": {
+            "item": 2,
+            "org": 1,
+            "comment": "Yummy sweet wine."
+        }
+    },
+    {
+        "model": "org_api.comment",
+        "pk": 3,
+        "fields": {
+            "item": 3,
+            "org": 2,
+            "comment": "Comfy chair"
+        }
+    }
+]

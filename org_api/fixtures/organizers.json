@@ -1,0 +1,18 @@
+[
+    {
+        "model": "org_api.organizer",
+        "pk": 1,
+        "fields": {
+            "user": 1,
+            "picture": "https://www.freeiconspng.com/thumbs/sun-icon/sun-icon-4.jpg"
+        }
+    },
+    {
+        "model": "org_api.organizer",
+        "pk": 2,
+        "fields": {
+            "user": 2,
+            "picture": "https://cdn3.iconfinder.com/data/icons/avatars-9/145/Avatar_Dog-512.png"
+        }
+    }
+]

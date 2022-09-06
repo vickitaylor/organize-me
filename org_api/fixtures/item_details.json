@@ -1,0 +1,50 @@
+[
+    {
+        "model": "org_api.ItemDetail",
+        "pk": 1,
+        "fields": {
+            "item": 1,
+            "room": 1,
+            "quantity": 1,
+            "receipt_pic": "",
+            "purchased_from": "Publix",
+            "price": 3.99,
+            "status_id": 2,
+            "serial_num": "",
+            "purchase_date": null,
+            "expiration_date": "2022-09-10"
+        }
+    },
+    {
+        "model": "org_api.ItemDetail",
+        "pk": 2,
+        "fields": {
+            "item": 2,
+            "room": 2,
+            "quantity": 2,
+            "receipt_pic": "",
+            "purchased_from": "Total Wine",
+            "price": 8.99,
+            "status_id": 1,
+            "serial_num": "",
+            "purchase_date": null,
+            "expiration_date": null
+        }
+    },
+    {
+        "model": "org_api.ItemDetail",
+        "pk": 3,
+        "fields": {
+            "item": 3,
+            "room": 3,
+            "quantity": 1,
+            "receipt_pic": "",
+            "purchased_from": "Lowes",
+            "price": 150.00,
+            "status_id": 2,
+            "serial_num": "",
+            "purchase_date": "2018-08-10",
+            "expiration_date": null
+        }
+    }
+]

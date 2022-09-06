@@ -1,0 +1,10 @@
+[
+    {
+        "model": "org_api.shoppinglist",
+        "pk": 1,
+        "fields": {
+            "org": 1,
+            "private": false
+        }
+    }
+]

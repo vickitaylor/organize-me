@@ -1,0 +1,30 @@
+[
+    {
+        "model": "org_api.status",
+        "pk": 1,
+        "fields": {
+            "title": "New"
+        }
+    },
+    {
+        "model": "org_api.status",
+        "pk": 2,
+        "fields": {
+            "title": "Opened"            
+        }
+    },
+    {
+        "model": "org_api.status",
+        "pk": 3,
+        "fields": {
+            "title": "Empty, buy again"
+        }
+    },
+    {
+        "model": "org_api.status",
+        "pk": 4,
+        "fields": {
+            "title": "Empty, don't buy again"
+        }
+    }
+]

@@ -1,0 +1,32 @@
+[
+    {
+        "model": "org_api.room",
+        "pk": 1,
+        "fields": {
+            "name": "Pantry",
+            "org": 1,
+            "picture": "https://media.istockphoto.com/photos/bulk-staple-foods-picture-id1304818236?b=1&k=20&m=1304818236&s=170667a&w=0&h=w9x3cpQ62XWoqlbGamsr8-KAQJjuBV39H4v-7EQea-E=",
+            "private": false
+        }
+    },
+    {
+        "model": "org_api.room",
+        "pk": 2,
+        "fields": {
+            "name": "Bar",
+            "org": 1,
+            "picture": "https://assets.weimgs.com/weimgs/ab/images/wcm/products/202215/0038/norre-bar-cabinet-z.jpg",
+            "private": false
+        }
+    },
+    {
+        "model": "org_api.room",
+        "pk": 3,
+        "fields": {
+            "name": "Deck",
+            "org": 1,
+            "picture": "https://www.bankrate.com/2021/05/03094639/How_much_does_it_cost_to_build_a_deck-1122x720.jpg",
+            "private": false
+        }
+    }
+]

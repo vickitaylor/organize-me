@@ -1,0 +1,41 @@
+[
+    {
+        "model": "org_api.item",
+        "pk": 1,
+        "fields": {
+            "name": "Milk",
+            "org": 1,
+            "picture": "http://clipart-library.com/data_images/520429.jpg",
+            "private": false,
+            "description": "2% Milk",
+            "category": 1,
+            "wish_items": [1]
+        }
+    },
+    {
+        "model": "org_api.item",
+        "pk": 2,
+        "fields": {
+            "name": "Dive Bar Strawberry Moscato",
+            "org": 1,
+            "picture": "https://www.totalwine.com/dynamic/x300,sq/media/sys_master/twmmedia/h3e/hf5/16366458961950.png",
+            "private": false,
+            "description": "California- This fresh wine is bursting with flavors of strawberry, kiwi and watermelon. It's light-bodied and perfect if you enjoy a fruit forward wine. It pairs great with summer salads, chicken wings and banana splits. One sip and you'll be a regular.",
+            "category": 6,
+            "shopping_items": [1]
+        }
+    },
+    {
+        "model": "org_api.item",
+        "pk": 3,
+        "fields": {
+            "name": "Outdoor Chairs",
+            "org": 1,
+            "picture": "https://hgtvhome.sndimg.com/content/dam/images/hgtv/products/2022/3/11/rx_target_burchett-2-piece-outdoor-club-chairs.jpg.rend.hgtvcom.616.493.suffix/1647025224946.jpeg",
+            "private": false,
+            "description": "Outdoor chairs",
+            "category": 3,
+            "likes": [1, 2]
+        }
+    }
+]
