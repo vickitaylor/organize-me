@@ -5,6 +5,7 @@ from rest_framework import status
 from django.contrib.auth.models import User
 
 from org_api.models import Room
+from org_api.models import organizer
 from org_api.models.organizer import Organizer
 from org_api.serializers import OrganizerSerializer, RoomSerializer
 
@@ -40,3 +41,21 @@ class RoomView(ViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Room.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
+    def create(self, request):
+        """ Handles the POST request to create a new room for the user.
+
+        Returns:
+            Response: JSON serialized room instance
+        """
+
+        organizer = Organizer.objects.get(user=request.auth.user)
+
+        room = Room.objects.create(
+            name=request.data["name"],
+            org=organizer,
+            picture=request.data["picture"],
+            private=False
+        )
+        serializer = RoomSerializer(room)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
