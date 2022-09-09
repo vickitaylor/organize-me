@@ -26,7 +26,11 @@ class RoomView(ViewSet):
 
         if user is not None:
             rooms = Room.objects.filter(org=user).order_by("name")
-            serializer = RoomSerializer(rooms, many=True)
+
+        else:
+            rooms = Room.objects.all().order_by("name")
+
+        serializer = RoomSerializer(rooms, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def retrieve(self, request, pk):
