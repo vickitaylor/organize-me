@@ -6,3 +6,11 @@ class Event(models.Model):
     time = models.TimeField(auto_now=False, auto_now_add=False)
     private = models.BooleanField(default=False)
     org = models.ForeignKey("Organizer", on_delete=models.CASCADE, related_name="event_user")
+
+    @property
+    def readable_time(self):
+        return self.time.strftime("%I:%M %p")
+    
+    @property
+    def readable_date(self):
+        return self.date.strftime("%m/%d/%Y")

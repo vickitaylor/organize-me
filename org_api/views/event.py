@@ -9,6 +9,7 @@ from org_api.models import Event
 from org_api.models import Organizer
 from org_api.serializers import EventSerializer
 
+
 class EventView(ViewSet):
     """ Organize Me Event View """
 
@@ -27,7 +28,7 @@ class EventView(ViewSet):
 
         else:
             events = Event.objects.all().order_by("date")
-        
+
         serializer = EventSerializer(events, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -48,7 +49,7 @@ class EventView(ViewSet):
     def create(self, request):
         """ Is the POST to create a new event for the user
 
-        
+
         Returns:
             Response: JSON serialized event instance
         """
@@ -56,14 +57,28 @@ class EventView(ViewSet):
         organizer = Organizer.objects.get(user=request.auth.user)
 
         event = Event.objects.create(
-            title = request.data["title"],
-            date = request.data["date"],
-            time = request.data["time"],
-            private = False,
-            org = organizer
+            title=request.data["title"],
+            date=request.data["date"],
+            time=request.data["time"],
+            private=False,
+            org=organizer
         )
 
         serializer = EventSerializer(event)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    
+    def update(self, request, pk):
+        """ Handles the PUT request for the selected event. 
+
+        Returns:
+        Response: Empty body with a 204 status code
+        """
+
+        event = Event.objects.get(pk=pk)
+
+        event.title = request.data["title"]
+        event.date = request.data["date"]
+        event.time = request.data["time"]
+
+        event.save()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
