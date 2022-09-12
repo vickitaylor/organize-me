@@ -1,5 +1,3 @@
-from datetime import date
-from time import time
 from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
