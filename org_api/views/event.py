@@ -1,3 +1,5 @@
+from datetime import date
+from time import time
 from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
@@ -42,3 +44,26 @@ class EventView(ViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Event.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
+    def create(self, request):
+        """ Is the POST to create a new event for the user
+
+        
+        Returns:
+            Response: JSON serialized event instance
+        """
+
+        organizer = Organizer.objects.get(user=request.auth.user)
+
+        event = Event.objects.create(
+            title = request.data["title"],
+            date = request.data["date"],
+            time = request.data["time"],
+            private = False,
+            org = organizer
+        )
+
+        serializer = EventSerializer(event)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    
