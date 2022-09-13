@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.core.files.base import ContentFile
 from org_api import serializers
+from django.db.models.functions import Lower
 
 from org_api.models import Item, Organizer, Category
 from org_api.serializers import ItemSerializer
@@ -21,7 +22,7 @@ class ItemView(ViewSet):
             Response: JSON serialized list of items
         """
 
-        items = Item.objects.all().order_by("name")
+        items = Item.objects.all().order_by(Lower("name"))
         serializer = ItemSerializer(items, many=True)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 

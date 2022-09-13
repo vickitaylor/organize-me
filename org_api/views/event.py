@@ -2,6 +2,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import status
+from django.db.models.functions import Lower
 
 from org_api.models import Event
 from org_api.models import Organizer
@@ -22,10 +23,10 @@ class EventView(ViewSet):
         user = request.query_params.get('user', None)
 
         if user is not None:
-            events = Event.objects.filter(org=user).order_by('date')
+            events = Event.objects.filter(org=user).order_by(Lower('date'))
 
         else:
-            events = Event.objects.all().order_by("date")
+            events = Event.objects.all().order_by(Lower('date'))
 
         serializer = EventSerializer(events, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)

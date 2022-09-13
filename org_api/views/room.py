@@ -5,6 +5,7 @@ from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import status
 from django.core.files.base import ContentFile
+from django.db.models.functions import Lower
 
 from org_api.models import Room
 from org_api.models import Organizer
@@ -25,10 +26,10 @@ class RoomView(ViewSet):
         user = request.query_params.get('user', None)
 
         if user is not None:
-            rooms = Room.objects.filter(org=user).order_by("name")
+            rooms = Room.objects.filter(org=user).order_by(Lower("name"))
 
         else:
-            rooms = Room.objects.all().order_by("name")
+            rooms = Room.objects.all().order_by(Lower("name"))
 
         serializer = RoomSerializer(rooms, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
