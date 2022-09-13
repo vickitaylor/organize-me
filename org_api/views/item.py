@@ -7,7 +7,7 @@ from rest_framework import status
 from django.core.files.base import ContentFile
 from org_api import serializers
 
-from org_api.models import Item, Organizer
+from org_api.models import Item, Organizer, Category
 from org_api.serializers import ItemSerializer
 
 class ItemView(ViewSet):
@@ -37,3 +37,29 @@ class ItemView(ViewSet):
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Item.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
+
+    def create(self, request):
+        """ Handles the POST request to create a new item.
+
+        Returns:
+            Response: JSON serialized item instance
+        """
+
+        organizer = Organizer.objects.get(user=request.auth.user)
+        category = Category.objects.get(request.data["category"])
+
+        format, imgstr = request.data["picture"].split(';base64')
+        ext = format.split('/')[-1]
+        data = ContentFile(base64.b64decode(
+            imgstr), name=f'{request.data["name"]}--{uuid.uuid4()}.{ext}')
+
+        item = Item.objects.create(
+            name = request.data["name"],
+            org = organizer,
+            picture = data,
+            private = False,
+            description = request.data["description"],
+            cat
+        )
+        serializer = ItemSerializer(item)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)

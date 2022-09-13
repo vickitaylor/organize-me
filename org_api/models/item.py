@@ -5,7 +5,7 @@ class Item(models.Model):
     name = models.CharField(max_length=60)
     org = models.ForeignKey(
         "Organizer", on_delete=models.CASCADE, related_name="item_user")
-    picture = models.CharField(max_length=500)
+    picture = models.ImageField(upload_to='item_images', height_field=None, width_field=None, max_length=None, null=True)
     private = models.BooleanField(default=False)
     description = models.CharField(max_length=500)
     category = models.ForeignKey(
