@@ -10,6 +10,7 @@ from org_api import serializers
 from org_api.models import Item, Organizer, Category
 from org_api.serializers import ItemSerializer
 
+
 class ItemView(ViewSet):
     """ Organize Me Item View """
 
@@ -46,7 +47,7 @@ class ItemView(ViewSet):
         """
 
         organizer = Organizer.objects.get(user=request.auth.user)
-        category = Category.objects.get(request.data["category"])
+        category = Category.objects.get(pk=request.data["category"])
 
         format, imgstr = request.data["picture"].split(';base64')
         ext = format.split('/')[-1]
@@ -54,12 +55,12 @@ class ItemView(ViewSet):
             imgstr), name=f'{request.data["name"]}--{uuid.uuid4()}.{ext}')
 
         item = Item.objects.create(
-            name = request.data["name"],
-            org = organizer,
-            picture = data,
-            private = False,
-            description = request.data["description"],
-            cat
+            name=request.data["name"],
+            org=organizer,
+            picture=data,
+            private=False,
+            description=request.data["description"],
+            category=category
         )
         serializer = ItemSerializer(item)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
