@@ -21,12 +21,13 @@ from django.conf import settings
 from rest_framework import routers
 
 from org_api.views import register_user, login_user
-from org_api.views import RoomView, EventView, ItemView
+from org_api.views import RoomView, EventView, ItemView, CategoryView
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'rooms', RoomView, 'room')
 router.register(r'events', EventView, 'event')
 router.register(r'items', ItemView, 'item')
+router.register(r'categories', CategoryView, 'category')
 
 urlpatterns = [
     path('register', register_user),
