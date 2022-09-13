@@ -3,3 +3,4 @@ from .room import RoomView
 from .event import EventView
 from .item import ItemView
 from .category import CategoryView
+from .organizer import OrganizerView
