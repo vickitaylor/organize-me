@@ -64,3 +64,26 @@ class ItemView(ViewSet):
         )
         serializer = ItemSerializer(item)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def update(self, request, pk):
+        """ Handles the PUT request for the selected item. 
+
+        Returns:
+            Response: Empty body with a 204 status code
+        """
+
+        item = Item.objects.get(pk=pk)
+
+        format, imgstr = request.data["picture"].split(';base64')
+        ext = format.split('/')[-1]
+        data = ContentFile(base64.b64decode(
+            imgstr), name=f'{request.data["name"]}--{uuid.uuid4()}.{ext}')
+
+        item.name = request.data["name"]
+        item.picture = data
+        item.private = False
+        item.description = request.data["description"]
+        item.category = Category.objects.get(pk=request.data["category"])
+
+        item.save()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
