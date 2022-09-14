@@ -2,7 +2,7 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 class ItemDetail(models.Model):
-    item = models.OneToOneField(
+    item = models.ForeignKey(
         "Item", on_delete=models.CASCADE, related_name="detail_item")
     room = models.ForeignKey(
         "Room", on_delete=models.CASCADE, related_name="room")
