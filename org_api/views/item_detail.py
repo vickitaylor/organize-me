@@ -16,12 +16,20 @@ class ItemDetailView(ViewSet):
 
     def list(self, request):
         """ Handles the GET request, to get all items with extra properties from the database, sorted in ascending order by name.
+        - Query param being used to get the items in a room.
 
         Returns:
             Response: JSON serialized list of items
         """
 
-        items = ItemDetail.objects.all().order_by(Lower("item__name"))
+        room = request.query_params.get('room', None)
+
+        if room is not None:
+            items = ItemDetail.objects.filter(room=room).order_by(Lower("item__name"))
+
+        else:
+            items = ItemDetail.objects.all().order_by(Lower("item__name"))
+
         serializer = ItemDetailSerializer(items, many=True)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
