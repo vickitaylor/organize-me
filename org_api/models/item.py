@@ -16,3 +16,12 @@ class Item(models.Model):
         "WishList", through="WishItem", related_name="wishlist_item")
     shopping_items = models.ManyToManyField(
         "ShoppingList", through="ShoppingItem", related_name="shop_list_item")
+
+
+    @property 
+    def liked(self):
+        return self.__liked
+
+    @liked.setter 
+    def liked(self, value):
+        self.__liked = value

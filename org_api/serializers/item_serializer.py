@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from org_api.models import Item, ItemDetail
+from org_api.models import Item, ItemDetail, Like
 
 from org_api.serializers import OrganizerSerializer
 from org_api.serializers.status_serializer import StatusSerializer
@@ -9,7 +9,8 @@ class ItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Item
-        fields = ('id', 'name', 'description', 'category','likes', 'private', 'picture', 'org')
+        fields = ('id', 'name', 'description', 'category', 'liked', 'private', 'picture', 'org')
+
 
 
 class ItemDetailSerializer(serializers.ModelSerializer):

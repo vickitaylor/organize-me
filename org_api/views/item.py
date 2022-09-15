@@ -4,6 +4,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.decorators import action
 from django.core.files.base import ContentFile
 from org_api import serializers
 from django.db.models.functions import Lower
@@ -35,6 +36,8 @@ class ItemView(ViewSet):
 
         try:
             item = Item.objects.get(pk=pk)
+            organizer = Organizer.objects.get(user=request.auth.user)
+            item.liked = item in organizer.like_item.all()
             serializer = ItemSerializer(item)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except Item.DoesNotExist as ex:
@@ -88,3 +91,25 @@ class ItemView(ViewSet):
 
         item.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+    @action(methods=['POST'], detail=True)
+    def like(self, request, pk):
+        """POST request for the user to like an item"""
+
+        organizer = Organizer.objects.get(user=request.auth.user)
+        item = Item.objects.get(pk=pk)
+
+        item.likes.add(organizer)
+
+        return Response({'message': 'User added'}, status=status.HTTP_201_CREATED)
+
+    @action(methods=['DELETE'], detail=True)
+    def unlike(self, request, pk):
+        """"DELETE request for the user to unlike an item """
+
+        organizer = Organizer.objects.get(user=request.auth.user)
+        item = Item.objects.get(pk=pk)
+
+        item.likes.remove(organizer)
+
+        return Response({'message': 'User removed'}, status=status.HTTP_204_NO_CONTENT)
