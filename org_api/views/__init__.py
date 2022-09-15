@@ -5,3 +5,4 @@ from .item import ItemView
 from .category import CategoryView
 from .organizer import OrganizerView
 from .item_detail import ItemDetailView
+from .status import StatusView

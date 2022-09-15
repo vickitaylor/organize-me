@@ -3,3 +3,4 @@ from .room_serializer import RoomSerializer
 from .event_serializer import EventSerializer
 from .item_serializer import ItemSerializer, ItemDetailSerializer
 from .category_serializer import CategorySerializer
+from .status_serializer import StatusSerializer
