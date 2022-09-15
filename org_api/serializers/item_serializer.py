@@ -2,6 +2,7 @@ from rest_framework import serializers
 from org_api.models import Item, ItemDetail
 
 from org_api.serializers import OrganizerSerializer
+from org_api.serializers.status_serializer import StatusSerializer
 
 class ItemSerializer(serializers.ModelSerializer):
     org = OrganizerSerializer()
@@ -13,6 +14,7 @@ class ItemSerializer(serializers.ModelSerializer):
 
 class ItemDetailSerializer(serializers.ModelSerializer):
     item = ItemSerializer()
+    status = StatusSerializer()
 
     class Meta:
         model = ItemDetail
