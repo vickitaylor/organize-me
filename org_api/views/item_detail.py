@@ -7,7 +7,7 @@ from rest_framework import status
 from django.core.files.base import ContentFile
 from django.db.models.functions import Lower
 
-from org_api.models import ItemDetail, Item, Room
+from org_api.models import ItemDetail, Item, Room, Status
 from org_api.serializers import ItemDetailSerializer
 
 
@@ -31,7 +31,7 @@ class ItemDetailView(ViewSet):
             items = ItemDetail.objects.all().order_by(Lower("item__name"))
 
         serializer = ItemDetailSerializer(items, many=True)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def retrieve(self, request, pk):
         """ Handles the GET request to get a single items details, if the selected key is not found then a 404 message is returned
@@ -65,25 +65,29 @@ class ItemDetailView(ViewSet):
         serializer = ItemDetailSerializer(item_detail)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-    # def update(self, request, pk):
-    #     """ Handles the PUT request for the selected item. 
+    def update(self, request, pk):
+        """ Handles the PUT request for the selected item details. 
 
-    #     Returns:
-    #         Response: Empty body with a 204 status code
-    #     """
+        Returns:
+            Response: Empty body with a 204 status code
+        """
 
-    #     item = Item.objects.get(pk=pk)
+        item_detail= ItemDetail.objects.get(pk=pk)
 
-    #     format, imgstr = request.data["picture"].split(';base64')
-    #     ext = format.split('/')[-1]
-    #     data = ContentFile(base64.b64decode(
-    #         imgstr), name=f'{request.data["name"]}--{uuid.uuid4()}.{ext}')
+        format, imgstr = request.data["receipt_pic"].split(';base64')
+        ext = format.split('/')[-1]
+        data = ContentFile(base64.b64decode(
+            imgstr), name=f'{request.data["purchased_from"]}--{uuid.uuid4()}.{ext}')
 
-    #     item.name = request.data["name"]
-    #     item.picture = data
-    #     item.private = False
-    #     item.description = request.data["description"]
-    #     item.category = Category.objects.get(pk=request.data["category"])
+        item_detail.room = Room.objects.get(pk=request.data["room"])
+        item_detail.quantity = request.data["quantity"]
+        item_detail.purchased_from = request.data["purchased_from"]
+        item_detail.price = float(request.data["price"])
+        item_detail.status = Status.objects.get(pk=request.data["status"])
+        item_detail.serial_num = request.data["serial_num"]
+        item_detail.purchase_date = request.data["purchase_date"]
+        item_detail.expiration_date = request.data["expiration_date"]
+        item_detail.receipt_pic = data
 
-    #     item.save()
-    #     return Response(None, status=status.HTTP_204_NO_CONTENT)
+        item_detail.save()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)

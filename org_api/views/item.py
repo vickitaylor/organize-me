@@ -24,7 +24,7 @@ class ItemView(ViewSet):
 
         items = Item.objects.all().order_by(Lower("name"))
         serializer = ItemSerializer(items, many=True)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     def retrieve(self, request, pk):
         """ Handles the GET request to get a single item, if the selected key is not found then a 404 message is returned

@@ -7,7 +7,7 @@ class ItemDetail(models.Model):
     room = models.ForeignKey(
         "Room", on_delete=models.CASCADE, related_name="room")
     quantity = models.PositiveIntegerField(default=0, null=True, blank=True)
-    receipt_pic = models.ImageField(upload_to='receipt_images', height_field=None, width_field=None, max_length=None, null=True)
+    receipt_pic = models.ImageField(upload_to='receipt_images', height_field=None, width_field=None, max_length=None, null=True, blank=True)
     purchased_from = models.CharField(max_length=55, null=True, blank=True)
     price = models.FloatField(validators=[
         MinValueValidator(0.00), MaxValueValidator(7500.00)], null=True, blank=True)
