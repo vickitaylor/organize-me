@@ -80,13 +80,17 @@ class RoomView(ViewSet):
 
         room = Room.objects.get(pk=pk)
 
-        format, imgstr = request.data["picture"].split(';base64')
-        ext = format.split('/')[-1]
-        data = ContentFile(base64.b64decode(
-            imgstr), name=f'{request.data["name"]}--{uuid.uuid4()}.{ext}')
+        try:
+            format, imgstr = request.data["picture"].split(';base64')
+            ext = format.split('/')[-1]
+            data = ContentFile(base64.b64decode(
+                imgstr), name=f'{request.data["name"]}--{uuid.uuid4()}.{ext}')
 
-        room.name = request.data["name"]
-        room.picture = data
+            room.name = request.data["name"]
+            room.picture = data
+
+        except ValueError as ex:
+            room.name = request.data["name"]
 
         room.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
