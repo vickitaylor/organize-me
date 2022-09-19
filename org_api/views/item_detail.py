@@ -91,7 +91,7 @@ class ItemDetailView(ViewSet):
             item_detail.expiration_date = request.data["expiration_date"]
             item_detail.receipt_pic = data
 
-        except ValueError as ex:
+        except AttributeError as ex:
             item_detail.room = Room.objects.get(pk=request.data["room"])
             item_detail.quantity = request.data["quantity"]
             item_detail.purchased_from = request.data["purchased_from"]
