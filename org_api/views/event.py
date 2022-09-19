@@ -1,4 +1,5 @@
 from django.http import HttpResponseServerError
+from django.contrib.auth.models import User
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import status
@@ -21,16 +22,17 @@ class EventView(ViewSet):
         Returns:
             Response: JSON serialized list of rooms
         """
-
+        # organizer = User.objects.get(id=request.auth.user)
         user = request.query_params.get('user', None)
+        search = self.request.query_params.get('search', None)
 
+        # if organizer is not None:
+        #     events = events.filter(org=request.auth.user)
         if user is not None:
             events = Event.objects.filter(org=user).order_by(Lower('date'))
-
         else:
             events = Event.objects.all().order_by(Lower('date'))
 
-        search = self.request.query_params.get('search', None)
         if search is not None:
             events = Event.objects.filter(
                 Q(title__contains=search) |
