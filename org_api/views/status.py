@@ -21,3 +21,16 @@ class StatusView(ViewSet):
         statuses = Status.objects.all().order_by(Lower("title"))
         serializer = StatusSerializer(statuses, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def create(self, request):
+        """ Handles the POST request to create a new item status.
+
+        Returns:
+            Response: JSON serialized status instance
+        """
+
+        new = Status.objects.create(
+            title=request.data["title"]
+        )
+        serializer = StatusSerializer(new)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
