@@ -1,3 +1,5 @@
+from nis import cat
+from unicodedata import category
 from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
@@ -21,3 +23,16 @@ class CategoryView(ViewSet):
         categories = Category.objects.all().order_by(Lower("name"))
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
+
+    def create(self, request):
+        """ Handles the POST request to create a new category.
+
+        Returns:
+            Response: JSON serialized category instance
+        """
+
+        category = Category.objects.create(
+            name=request.data["name"]
+        )
+        serializer = CategorySerializer(category)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)

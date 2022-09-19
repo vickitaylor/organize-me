@@ -32,6 +32,9 @@ class ItemView(ViewSet):
                 Q(name__contains=search) |
                 Q(description__contains=search)
             )
+        category = request.query_params.get('category', None)
+        if category is not None:
+            items = Item.objects.filter(category=category)
 
         serializer = ItemSerializer(items, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
