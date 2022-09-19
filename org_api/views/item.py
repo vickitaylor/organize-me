@@ -8,6 +8,7 @@ from rest_framework.decorators import action
 from django.core.files.base import ContentFile
 from org_api import serializers
 from django.db.models.functions import Lower
+from django.db.models import Q
 
 from org_api.models import Item, Organizer, Category
 from org_api.serializers import ItemSerializer
@@ -24,6 +25,14 @@ class ItemView(ViewSet):
         """
 
         items = Item.objects.all().order_by(Lower("name"))
+
+        search = self.request.query_params.get('search', None)
+        if search is not None:
+            items = Item.objects.filter(
+                Q(name__contains=search) |
+                Q(description__contains=search)
+            )
+
         serializer = ItemSerializer(items, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
