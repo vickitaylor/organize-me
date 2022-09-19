@@ -22,19 +22,18 @@ class EventView(ViewSet):
         Returns:
             Response: JSON serialized list of rooms
         """
-        # organizer = User.objects.get(id=request.auth.user)
+
         user = request.query_params.get('user', None)
         search = self.request.query_params.get('search', None)
+        events = Event.objects.all()
 
-        # if organizer is not None:
-        #     events = events.filter(org=request.auth.user)
         if user is not None:
-            events = Event.objects.filter(org=user).order_by(Lower('date'))
+            events = events.filter(org=user).order_by(Lower('date'))
         else:
-            events = Event.objects.all().order_by(Lower('date'))
+            events = events.order_by(Lower('date'))
 
         if search is not None:
-            events = Event.objects.filter(
+            events = events.filter(
                 Q(title__contains=search) |
                 Q(date__contains=search)
             )
