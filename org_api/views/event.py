@@ -4,6 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import action
 from django.db.models.functions import Lower
+from django.db.models import Q
 
 from org_api.models import Event
 from org_api.models import Organizer
@@ -28,6 +29,13 @@ class EventView(ViewSet):
 
         else:
             events = Event.objects.all().order_by(Lower('date'))
+
+        search = self.request.query_params.get('search', None)
+        if search is not None:
+            events = Event.objects.filter(
+                Q(title__contains=search) |
+                Q(date__contains=search)
+            )
 
         serializer = EventSerializer(events, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
