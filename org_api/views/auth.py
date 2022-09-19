@@ -30,7 +30,8 @@ def login_user(request):
             'valid': True,
             'token': token.key,
             # added property for current user, to show the user id logged in under application
-            'current_user': authenticated_user.id
+            'current_user': authenticated_user.id,
+            'is_staff': authenticated_user.is_staff
         }
         return Response(data)
     else:
