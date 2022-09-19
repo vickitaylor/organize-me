@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.core.files.base import ContentFile
 from django.db.models.functions import Lower
+from django.db.models import Q
 
 from org_api.models import ItemDetail, Item, Room, Status
 from org_api.serializers import ItemDetailSerializer
@@ -23,13 +24,22 @@ class ItemDetailView(ViewSet):
         """
 
         room = request.query_params.get('room', None)
+        search = self.request.query_params.get('search', None)
+        category = request.query_params.get('category', None)
 
         if room is not None:
             items = ItemDetail.objects.filter(
                 room=room).order_by(Lower("item__name"))
 
-        else:
-            items = ItemDetail.objects.all().order_by(Lower("item__name"))
+        if search is not None: 
+            items = ItemDetail.objects.filter(
+                Q(item__name__contains = search) |
+                Q(item__description__contains = search) |
+                Q(purchased_from__contains = search)
+            )
+        
+        if category is not None:
+            items = items.filter(item__category = category)
 
         serializer = ItemDetailSerializer(items, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
