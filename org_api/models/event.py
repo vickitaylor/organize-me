@@ -8,6 +8,7 @@ class Event(models.Model):
     private = models.BooleanField(default=False)
     org = models.ForeignKey(
         "Organizer", on_delete=models.CASCADE, related_name="event_user")
+    completed = models.BooleanField(default=False)
 
     @property
     def readable_time(self):

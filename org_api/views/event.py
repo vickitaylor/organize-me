@@ -2,6 +2,7 @@ from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.decorators import action
 from django.db.models.functions import Lower
 
 from org_api.models import Event
@@ -88,4 +89,13 @@ class EventView(ViewSet):
 
         event = Event.objects.get(pk=pk)
         event.delete()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+    @action(methods=['PUT'], detail=True)
+    def complete(self, request, pk):
+        """ PUT request to make the completed property true """
+
+        event = Event.objects.get(pk=pk)
+        event.completed = True
+        event.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)

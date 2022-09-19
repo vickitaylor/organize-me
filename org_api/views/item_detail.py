@@ -25,7 +25,8 @@ class ItemDetailView(ViewSet):
         room = request.query_params.get('room', None)
 
         if room is not None:
-            items = ItemDetail.objects.filter(room=room).order_by(Lower("item__name"))
+            items = ItemDetail.objects.filter(
+                room=room).order_by(Lower("item__name"))
 
         else:
             items = ItemDetail.objects.all().order_by(Lower("item__name"))
@@ -57,9 +58,9 @@ class ItemDetailView(ViewSet):
         room = Room.objects.get(pk=request.data["room"])
 
         item_detail = ItemDetail.objects.create(
-            item = item,
-            room = room,
-            quantity = 1
+            item=item,
+            room=room,
+            quantity=1
         )
 
         serializer = ItemDetailSerializer(item_detail)
@@ -72,22 +73,33 @@ class ItemDetailView(ViewSet):
             Response: Empty body with a 204 status code
         """
 
-        item_detail= ItemDetail.objects.get(pk=pk)
+        item_detail = ItemDetail.objects.get(pk=pk)
 
-        format, imgstr = request.data["receipt_pic"].split(';base64')
-        ext = format.split('/')[-1]
-        data = ContentFile(base64.b64decode(
-            imgstr), name=f'{request.data["purchased_from"]}--{uuid.uuid4()}.{ext}')
+        try:
+            format, imgstr = request.data["receipt_pic"].split(';base64')
+            ext = format.split('/')[-1]
+            data = ContentFile(base64.b64decode(
+                imgstr), name=f'{request.data["purchased_from"]}--{uuid.uuid4()}.{ext}')
 
-        item_detail.room = Room.objects.get(pk=request.data["room"])
-        item_detail.quantity = request.data["quantity"]
-        item_detail.purchased_from = request.data["purchased_from"]
-        item_detail.price = float(request.data["price"])
-        item_detail.status = Status.objects.get(pk=request.data["status"])
-        item_detail.serial_num = request.data["serial_num"]
-        item_detail.purchase_date = request.data["purchase_date"]
-        item_detail.expiration_date = request.data["expiration_date"]
-        item_detail.receipt_pic = data
+            item_detail.room = Room.objects.get(pk=request.data["room"])
+            item_detail.quantity = request.data["quantity"]
+            item_detail.purchased_from = request.data["purchased_from"]
+            item_detail.price = float(request.data["price"])
+            item_detail.status = Status.objects.get(pk=request.data["status"])
+            item_detail.serial_num = request.data["serial_num"]
+            item_detail.purchase_date = request.data["purchase_date"]
+            item_detail.expiration_date = request.data["expiration_date"]
+            item_detail.receipt_pic = data
+
+        except ValueError as ex:
+            item_detail.room = Room.objects.get(pk=request.data["room"])
+            item_detail.quantity = request.data["quantity"]
+            item_detail.purchased_from = request.data["purchased_from"]
+            item_detail.price = float(request.data["price"])
+            item_detail.status = Status.objects.get(pk=request.data["status"])
+            item_detail.serial_num = request.data["serial_num"]
+            item_detail.purchase_date = request.data["purchase_date"]
+            item_detail.expiration_date = request.data["expiration_date"]
 
         item_detail.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)

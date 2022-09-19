@@ -6,7 +6,7 @@ class ItemDetail(models.Model):
         "Item", on_delete=models.CASCADE, related_name="detail_item")
     room = models.ForeignKey(
         "Room", on_delete=models.CASCADE, related_name="room")
-    quantity = models.PositiveIntegerField(default=0, null=True, blank=True)
+    quantity = models.PositiveIntegerField(default=1, null=True, blank=True)
     receipt_pic = models.ImageField(upload_to='receipt_images', height_field=None, width_field=None, max_length=None, null=True, blank=True)
     purchased_from = models.CharField(max_length=55, null=True, blank=True)
     price = models.FloatField(validators=[
@@ -16,3 +16,11 @@ class ItemDetail(models.Model):
     serial_num = models.CharField(max_length=55, null=True, blank=True)
     purchase_date = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
     expiration_date = models.DateField(auto_now=False, auto_now_add=False, null=True, blank=True)
+
+    @property
+    def exp_date(self):
+        return self.expiration_date.strftime("%m/%d/%Y")
+
+    @property
+    def purchased_date(self):
+        return self.purchase_date.strftime("%m/%d/%Y")
