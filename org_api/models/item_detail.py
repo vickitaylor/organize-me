@@ -28,3 +28,7 @@ class ItemDetail(models.Model):
     @property
     def purchased_date(self):
         return self.purchase_date.strftime("%m/%d/%Y")
+
+    @property
+    def format_price(self):
+        return "${:,.2f}".format(self.price)
