@@ -12,3 +12,4 @@ from .shopping_list import ShoppingList
 from .status import Status
 from .wish_item import WishItem
 from .wish_list import WishList
+from .receipt import Receipt
