@@ -8,7 +8,7 @@ class EventSerializer(serializers.ModelSerializer):
     org = OrganizerSerializer()
 
     class Meta:
-        model = Event
 
+        model = Event
         fields = ('id', 'title', 'date', 'readable_date',
                   'readable_time', 'time', 'private', 'org', 'completed')
