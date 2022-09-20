@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from org_api.models import Item, ItemDetail
-from org_api.serializers.receipt import ReceiptSerializer
+from org_api.serializers.receipt_serializer import ReceiptSerializer
 
 from org_api.serializers.user_serializer import OrganizerSerializer
 from org_api.serializers.category_serializer import CategorySerializer
@@ -20,9 +20,8 @@ class ItemSerializer(serializers.ModelSerializer):
 class ItemDetailSerializer(serializers.ModelSerializer):
     item = ItemSerializer()
     status = StatusSerializer()
-    receipt = ReceiptSerializer()
 
     class Meta:
         model = ItemDetail
-        fields = ('id', 'quantity', 'receipt', 'purchased_from', 'serial_num',
-                  'purchase_date', 'purchased_date', 'expiration_date', 'exp_date', 'price', 'item', 'room', 'status', 'format_price')
+        fields = ('id', 'quantity', 'purchased_from', 'serial_num', 'purchase_date', 'purchased_date',
+                  'expiration_date', 'exp_date', 'price', 'item', 'room', 'status', 'format_price')

@@ -20,7 +20,10 @@ class ReceiptView(ViewSet):
             Response: JSON serialized list of items
         """
 
-        pictures = Receipt.objects.all()
+        item_detail = request.query_params.get('item_detail', None)
+
+        if item_detail is not None:
+            pictures = Receipt.objects.filter(item_detail=item_detail)
 
         serializer = ReceiptSerializer(pictures, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
@@ -33,8 +36,8 @@ class ReceiptView(ViewSet):
         """
 
         try:
-            item = ItemDetail.objects.get(pk=pk)
-            serializer = ItemDetailSerializer(item)
+            picture = Receipt.objects.get(pk=pk)
+            serializer = ReceiptSerializer(picture)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except ItemDetail.DoesNotExist as ex:
             return Response({'message': ex.args[0]}, status=status.HTTP_404_NOT_FOUND)
@@ -46,36 +49,17 @@ class ReceiptView(ViewSet):
             Response: JSON serialized receipt instance
         """
 
-        item = ItemDetail.objects.get(pk=request.data["item"])
-
-        format, imgstr = request.data["picture"].split(';base64')
-        ext = format.split('/')[-1]
-        data = ContentFile(base64.b64decode(
-            imgstr), name=f'{request.data["name"]}--{uuid.uuid4()}.{ext}')
-
-        receipt = Receipt.objects.create(
-            receipt_pic=data,
-            item_detail=item
-        )
-
-        serializer = ReceiptSerializer(receipt)
-        return Response(serializer.data, status=status.HTTP_201_CREATED)
-
-    def update(self, request, pk):
-        """ Handles the PUT request for the selected receipt picture. 
-
-        Returns:
-            Response: Empty body with a 204 status code
-        """
-
-        receipt = Receipt.objects.get(pk=pk)
+        item = ItemDetail.objects.get(pk=request.data["item_detaiL"])
 
         format, imgstr = request.data["receipt_pic"].split(';base64')
         ext = format.split('/')[-1]
         data = ContentFile(base64.b64decode(
-            imgstr), name=f'{request.data["name"]}--{uuid.uuid4()}.{ext}')
+            imgstr), name=f'{"item"}--{uuid.uuid4()}.{ext}')
 
-        receipt.receipt_pic = data
+        receipt = Receipt.objects.create(
+            item_detail=item,
+            receipt_pic=data
+        )
 
-        receipt.save()
-        return Response(None, status=status.HTTP_204_NO_CONTENT)
+        serializer = ReceiptSerializer(receipt)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)

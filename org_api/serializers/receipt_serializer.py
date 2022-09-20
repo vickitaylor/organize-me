@@ -2,7 +2,6 @@ from rest_framework import serializers
 from org_api.models import Receipt
 
 
-
 class ReceiptSerializer(serializers.ModelSerializer):
     """JSON serializer for rating
     """

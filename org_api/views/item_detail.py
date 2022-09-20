@@ -85,16 +85,6 @@ class ItemDetailView(ViewSet):
 
         item_detail = ItemDetail.objects.get(pk=pk)
 
-        if request.data["receipt_pic"] is not None:
-            pass
-
-        else:
-            format, imgstr = request.data["receipt_pic"].split(';base64')
-            ext = format.split('/')[-1]
-            data = ContentFile(base64.b64decode(
-                imgstr), name=f'{request.data["purchased_from"]}--{uuid.uuid4()}.{ext}')
-            item_detail.receipt_pic = data
-
         item_detail.room = Room.objects.get(pk=request.data["room"])
         item_detail.quantity = request.data["quantity"]
         item_detail.purchased_from = request.data["purchased_from"]
