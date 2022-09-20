@@ -6,3 +6,4 @@ from .category import CategoryView
 from .organizer import OrganizerView
 from .item_detail import ItemDetailView
 from .status import StatusView
+from .like import LikeView
