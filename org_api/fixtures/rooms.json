@@ -5,7 +5,7 @@
         "fields": {
             "name": "Pantry",
             "org": 1,
-            "picture": "https://media.istockphoto.com/photos/bulk-staple-foods-picture-id1304818236?b=1&k=20&m=1304818236&s=170667a&w=0&h=w9x3cpQ62XWoqlbGamsr8-KAQJjuBV39H4v-7EQea-E=",
+            "picture": "room_images/Pantry--69abf42f-22ca-4fb4-bfc6-7db937ba1e19.jpeg",
             "private": false
         }
     },
@@ -15,7 +15,7 @@
         "fields": {
             "name": "Bar",
             "org": 1,
-            "picture": "https://assets.weimgs.com/weimgs/ab/images/wcm/products/202215/0038/norre-bar-cabinet-z.jpg",
+            "picture": "room_images/Bar--de8758a0-dccd-45cb-af5f-b5c7efeb2055.webp",
             "private": false
         }
     },
@@ -25,7 +25,7 @@
         "fields": {
             "name": "Deck",
             "org": 1,
-            "picture": "https://www.bankrate.com/2021/05/03094639/How_much_does_it_cost_to_build_a_deck-1122x720.jpg",
+            "picture": "room_images/Deck--291a8bf2-09a1-4433-8ea2-6bcc723b3e1c.jpeg",
             "private": false
         }
     }
