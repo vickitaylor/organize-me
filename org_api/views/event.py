@@ -28,7 +28,7 @@ class EventView(ViewSet):
         events = Event.objects.all()
 
         if user is not None:
-            events = events.filter(org=user).order_by('date')
+            events = events.filter(org=user).order_by('date', 'time')
         else:
             events = events.order_by('date')
 

@@ -34,6 +34,7 @@ router.register(r'item_details', ItemDetailView, 'item_detail')
 router.register(r'status', StatusView, 'status')
 router.register(r'likes', LikeView, 'like')
 router.register(r'receipts', ReceiptView, 'receipt')
+router.register(r'users', OrganizerView, 'user')
 
 urlpatterns = [
     path('register', register_user),
