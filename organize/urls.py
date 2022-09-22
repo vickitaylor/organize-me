@@ -22,7 +22,7 @@ from rest_framework import routers
 
 from org_api.views import register_user, login_user
 from org_api.views import (RoomView, EventView, ItemView,
-                           CategoryView, OrganizerView, ItemDetailView, StatusView)
+                           CategoryView, OrganizerView, ItemDetailView, StatusView, LikeView, ReceiptView)
 
 router = routers.DefaultRouter(trailing_slash=False)
 router.register(r'rooms', RoomView, 'room')
@@ -32,6 +32,9 @@ router.register(r'categories', CategoryView, 'category')
 router.register(r'organizers', OrganizerView, 'organizer')
 router.register(r'item_details', ItemDetailView, 'item_detail')
 router.register(r'status', StatusView, 'status')
+router.register(r'likes', LikeView, 'like')
+router.register(r'receipts', ReceiptView, 'receipt')
+router.register(r'users', OrganizerView, 'user')
 
 urlpatterns = [
     path('register', register_user),

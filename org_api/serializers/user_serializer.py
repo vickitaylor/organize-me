@@ -15,4 +15,4 @@ class OrganizerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Organizer
-        fields = ('id', 'user', 'picture')
+        fields = ('id', 'user', 'picture', 'approved')

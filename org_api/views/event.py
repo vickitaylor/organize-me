@@ -18,6 +18,8 @@ class EventView(ViewSet):
     def list(self, request):
         """Handles the GET request to get all events in the database, sorted in order by date.
         - There is a query param to get the rooms only for the logged in user
+        - There is a query param for a search that searches the searched term in the title
+        and date fields
 
         Returns:
             Response: JSON serialized list of rooms
@@ -28,9 +30,9 @@ class EventView(ViewSet):
         events = Event.objects.all()
 
         if user is not None:
-            events = events.filter(org=user).order_by(Lower('date'))
+            events = events.filter(org=user).order_by('date', 'time')
         else:
-            events = events.order_by(Lower('date'))
+            events = events.order_by('date')
 
         if search is not None:
             events = events.filter(

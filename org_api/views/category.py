@@ -1,5 +1,3 @@
-from nis import cat
-from unicodedata import category
 from django.http import HttpResponseServerError
 from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
@@ -36,3 +34,11 @@ class CategoryView(ViewSet):
         )
         serializer = CategorySerializer(category)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    def destroy(self, request, pk):
+        """Handles the delete request for an category
+        """
+
+        category = Category.objects.get(pk=pk)
+        category.delete()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
