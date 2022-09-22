@@ -26,13 +26,14 @@ class ItemDetailView(ViewSet):
         room = request.query_params.get('room', None)
         search = self.request.query_params.get('search', None)
         category = request.query_params.get('category', None)
+        items= ItemDetail.objects.all()
 
         if room is not None:
             items = ItemDetail.objects.filter(
                 room=room).order_by(Lower("item__name"))
 
         if search is not None:
-            items = ItemDetail.objects.filter(
+            items = items.filter(
                 Q(item__name__contains=search) |
                 Q(item__description__contains=search) |
                 Q(purchased_from__contains=search)
