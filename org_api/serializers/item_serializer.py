@@ -24,4 +24,4 @@ class ItemDetailSerializer(serializers.ModelSerializer):
     class Meta:
         model = ItemDetail
         fields = ('id', 'quantity', 'purchased_from', 'serial_num', 'purchase_date', 'purchased_date',
-                  'expiration_date', 'exp_date', 'price', 'item', 'room', 'status', 'format_price')
+                  'expiration_date', 'exp_date', 'price', 'item', 'room', 'status', 'format_price', 'description')

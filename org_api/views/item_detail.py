@@ -70,7 +70,8 @@ class ItemDetailView(ViewSet):
         item_detail = ItemDetail.objects.create(
             item=item,
             room=room,
-            quantity=1
+            quantity=1,
+            status=Status.objects.get(pk=1)
         )
 
         serializer = ItemDetailSerializer(item_detail)
@@ -93,6 +94,7 @@ class ItemDetailView(ViewSet):
         item_detail.serial_num = request.data["serial_num"]
         item_detail.purchase_date = request.data["purchase_date"]
         item_detail.expiration_date = request.data["expiration_date"]
+        item_detail.description = request.data["description"]
 
         item_detail.save()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
