@@ -8,7 +8,7 @@ from django.core.files.base import ContentFile
 from django.db.models.functions import Lower
 from django.db.models import Q
 
-from org_api.models import ItemDetail, Item, Room, Status
+from org_api.models import ItemDetail, Item, Room, Status, item_detail
 from org_api.serializers import ItemDetailSerializer
 
 
@@ -95,4 +95,12 @@ class ItemDetailView(ViewSet):
         item_detail.expiration_date = request.data["expiration_date"]
 
         item_detail.save()
+        return Response(None, status=status.HTTP_204_NO_CONTENT)
+
+    def destroy(self, request, pk):
+        """Handles the delete for an item detail
+        """
+
+        item_detail = ItemDetail.objects.get(pk=pk)
+        item_detail.delete()
         return Response(None, status=status.HTTP_204_NO_CONTENT)
