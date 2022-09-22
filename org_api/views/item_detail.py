@@ -8,7 +8,7 @@ from django.core.files.base import ContentFile
 from django.db.models.functions import Lower
 from django.db.models import Q
 
-from org_api.models import ItemDetail, Item, Room, Status, item_detail
+from org_api.models import ItemDetail, Item, Room, Status
 from org_api.serializers import ItemDetailSerializer
 
 
