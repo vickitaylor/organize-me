@@ -7,9 +7,9 @@ Organize Me allows the user to track items in their household.  Users can create
 
 1) Clone the repository ` git clone git@github.com:vickitaylor/organize-me-server.git`
 2) cd into the corresponding directory `cd organize-me-server`
-3) `npm install` 
+3) Open the shell `pipenv shell` 
 4) Client side of for the project located at [Client Side LINK](https://github.com/vickitaylor/organize-me-client) with instructions to clone and run
-5) `npm start`
+5) Run the server `python3 manage.py runserver`
 
 ### Tech Stack
 * HTML
