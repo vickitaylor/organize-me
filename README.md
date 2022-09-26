@@ -5,10 +5,10 @@ Organize Me allows the user to track items in their household.  Users can create
 
 ### Installation
 
-1) Clone the repository ` git clone git@github.com:vickitaylor/organize-me-client.git`
-2) cd into the corresponding directory `cd organize-me-client`
+1) Clone the repository ` git clone git@github.com:vickitaylor/organize-me-server.git`
+2) cd into the corresponding directory `cd organize-me-server`
 3) `npm install` 
-4) Server side of for the project located at [Server Side LINK](https://github.com/vickitaylor/organize-me-server) with instructions to clone and run
+4) Client side of for the project located at [Client Side LINK](https://github.com/vickitaylor/organize-me-client) with instructions to clone and run
 5) `npm start`
 
 ### Tech Stack
