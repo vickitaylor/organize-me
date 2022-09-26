@@ -14,6 +14,7 @@ Organize Me allows the user to track items in their household.  Users can create
 ### Tech Stack
 * HTML
 * CSS
+* Bulma
 * JavaScript
 * React
 * Python
